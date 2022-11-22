@@ -6,11 +6,11 @@
 /*   By: mgraefen <mgraefen@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:27:27 by mgraefen          #+#    #+#             */
-/*   Updated: 2022/11/18 14:10:40 by mgraefen         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:06:37 by mgraefen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 size_t	ft_len_to_line_end(char *str, int line_break)
 {
