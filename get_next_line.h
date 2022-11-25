@@ -6,18 +6,19 @@
 /*   By: mgraefen <mgraefen@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:20:52 by mgraefen          #+#    #+#             */
-/*   Updated: 2022/11/17 15:43:24 by mgraefen         ###   ########.fr       */
+/*   Updated: 2022/11/25 08:53:02 by mgraefen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include <fcntl.h>
+
 # include <unistd.h>
-# include <stdio.h>
 # include <stdlib.h>
 
-/* #define BUFFER_SIZE 42 */
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char	*get_next_line(int fd);
 void	*ft_calloc(size_t count, size_t size);
