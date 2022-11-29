@@ -6,7 +6,7 @@
 /*   By: mgraefen <mgraefen@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 13:16:13 by mgraefen          #+#    #+#             */
-/*   Updated: 2022/11/18 14:26:45 by mgraefen         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:31:41 by mgraefen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ char	*ft_create_stash(int fd, char *stash)
 			stash = ft_strjoin(stash, buf);
 		if (ft_strchr(stash, '\n') != 0)
 			ret = 0;
+		if (!stash)
+			return (free(buf), NULL);
 	}
-	free(buf);
 	if (stash[0] == '\0')
-		return (free(stash), NULL);
-	return (stash);
+		return (free(stash), free(buf), NULL);
+	return (free(buf), stash);
 }
 
 char	*ft_create_line(char *stash)
@@ -49,7 +50,7 @@ char	*ft_create_line(char *stash)
 	if (!stash)
 		return (NULL);
 	i = 0;
-	stop = ft_len_to_line_end(stash, 1 + 1);
+	stop = ft_len_to_line_end(stash, 1);
 	line = (char *) ft_calloc(sizeof(char), ft_len_to_line_end(stash, 1) + 1);
 	if (!line)
 		return (free(stash), NULL);
@@ -70,9 +71,9 @@ char	*ft_create_new_stash(char *stash)
 	size_t	stash_len;
 
 	if (!stash)
-		return (free(stash), NULL);
+		return (NULL);
 	i = 0;
-	start = ft_len_to_line_end(stash, 1 + 2);
+	start = ft_len_to_line_end(stash, 1);
 	stash_len = ft_len_to_line_end(stash, 0);
 	new_stash = (char *) ft_calloc(sizeof(char), stash_len - start + 1);
 	if (!new_stash)
@@ -95,15 +96,12 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stash[fd] = ft_create_stash(fd, stash[fd]);
 	if (!stash[fd])
-		return (free(stash[fd]), NULL);
+		return (NULL);
 	line = ft_create_line(stash[fd]);
 	if (!line)
 		return (free(stash[fd]), NULL);
 	stash[fd] = ft_create_new_stash(stash[fd]);
 	if (!stash[fd])
-	{
-		free(stash[fd]);
-		free(line);
-	}
+		return (free(line), NULL);
 	return (line);
 }
